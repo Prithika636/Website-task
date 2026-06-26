@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REST API Demo</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#f4f4f4;
+    padding:20px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,.1);
+}
+
+h1{
+    text-align:center;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+button{
+    padding:10px 15px;
+    margin:5px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    color:white;
+}
+
+.get{background:#007bff;}
+.post{background:#28a745;}
+.put{background:#ffc107;color:black;}
+.delete{background:#dc3545;}
+
+pre{
+    background:#222;
+    color:#0f0;
+    padding:15px;
+    border-radius:5px;
+    overflow:auto;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>REST API CRUD Demo</h1>
+
+    <input type="number" id="userId" placeholder="User ID">
+
+    <input type="text" id="name" placeholder="Name">
+
+    <input type="email" id="email" placeholder="Email">
+
+    <button class="get" onclick="getUser()">GET User</button>
+
+    <button class="post" onclick="createUser()">POST User</button>
+
+    <button class="put" onclick="updateUser()">PUT User</button>
+
+    <button class="delete" onclick="deleteUser()">DELETE User</button>
+
+    <h3>Response</h3>
+    <pre id="output">Waiting for request...</pre>
+
+</div>
+
+<script>
+
+const API =
+"https://jsonplaceholder.typicode.com/users";
+
+const output =
+document.getElementById("output");
+
+function show(data){
+    output.textContent =
+    JSON.stringify(data,null,2);
+}
+
+async function getUser(){
+
+    const id =
+    document.getElementById("userId").value || 1;
+
+    const response =
+    await fetch(`${API}/${id}`);
+
+    const data =
+    await response.json();
+
+    show(data);
+}
+
+async function createUser(){
+
+    const name =
+    document.getElementById("name").value;
+
+    const email =
+    document.getElementById("email").value;
+
+    const response =
+    await fetch(API,{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+            name,
+            email
+        })
+    });
+
+    const data =
+    await response.json();
+
+    show(data);
+}
+
+async function updateUser(){
+
+    const id =
+    document.getElementById("userId").value || 1;
+
+    const name =
+    document.getElementById("name").value;
+
+    const email =
+    document.getElementById("email").value;
+
+    const response =
+    await fetch(`${API}/${id}`,{
+        method:"PUT",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+            id,
+            name,
+            email
+        })
+    });
+
+    const data =
+    await response.json();
+
+    show(data);
+}
+
+async function deleteUser(){
+
+    const id =
+    document.getElementById("userId").value || 1;
+
+    const response =
+    await fetch(`${API}/${id}`,{
+        method:"DELETE"
+    });
+
+    show({
+        status:response.status,
+        message:"User deleted"
+    });
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Frontend Validation Example</title>
+    <style>
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>User Registration</h2>
+
+<form id="myForm">
+    <label>Name:</label><br>
+    <input type="text" id="name">
+    <div id="nameError" class="error"></div><br>
+
+    <label>Email:</label><br>
+    <input type="text" id="email">
+    <div id="emailError" class="error"></div><br>
+
+    <label>Password:</label><br>
+    <input type="password" id="password">
+    <div id="passwordError" class="error"></div><br>
+
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+document.getElementById("myForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    let isValid = true;
+
+    // Clear previous errors
+    document.getElementById("nameError").textContent = "";
+    document.getElementById("emailError").textContent = "";
+    document.getElementById("passwordError").textContent = "";
+
+    // Name validation
+    const name = document.getElementById("name").value.trim();
+    if (name.length < 3) {
+        document.getElementById("nameError").textContent =
+            "Name must be at least 3 characters.";
+        isValid = false;
+    }
+
+    // Email validation
+    const email = document.getElementById("email").value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        document.getElementById("emailError").textContent =
+            "Enter a valid email address.";
+        isValid = false;
+    }
+
+    // Password validation
+    const password = document.getElementById("password").value;
+    if (password.length < 8) {
+        document.getElementById("passwordError").textContent =
+            "Password must be at least 8 characters.";
+        isValid = false;
+    }
+
+    if (isValid) {
+        alert("Form submitted successfully!");
+        // Submit data to backend here
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Upload System</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#f4f6f9;
+}
+
+.container{
+    width:400px;
+    background:#fff;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.15);
+    text-align:center;
+}
+
+h2{
+    margin-bottom:20px;
+    color:#333;
+}
+
+.upload-box{
+    border:2px dashed #4a90e2;
+    border-radius:10px;
+    padding:40px 20px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.upload-box:hover{
+    background:#eef6ff;
+}
+
+.upload-box p{
+    color:#4a90e2;
+    font-size:18px;
+}
+
+.preview{
+    display:none;
+    margin-top:20px;
+}
+
+.preview img{
+    width:100%;
+    max-height:300px;
+    object-fit:contain;
+    border-radius:10px;
+    border:1px solid #ddd;
+}
+
+button{
+    margin-top:15px;
+    padding:10px 20px;
+    border:none;
+    background:#ff4d4d;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:15px;
+}
+
+button:hover{
+    background:#e63939;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Image Upload System</h2>
+
+    <input type="file" id="fileInput" accept="image/*" hidden>
+
+    <div class="upload-box" id="uploadBox">
+        <p>📷 Click Here to Upload Image</p>
+    </div>
+
+    <div class="preview" id="preview">
+        <img id="previewImg" alt="Preview">
+        <br>
+        <button id="removeBtn">Remove Image</button>
+    </div>
+</div>
+
+<script>
+const fileInput = document.getElementById("fileInput");
+const uploadBox = document.getElementById("uploadBox");
+const preview = document.getElementById("preview");
+const previewImg = document.getElementById("previewImg");
+const removeBtn = document.getElementById("removeBtn");
+
+uploadBox.addEventListener("click", () => {
+    fileInput.click();
+});
+
+fileInput.addEventListener("change", function() {
+    const file = this.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+        previewImg.src = e.target.result;
+        preview.style.display = "block";
+    };
+
+    reader.readAsDataURL(file);
+});
+
+removeBtn.addEventListener("click", () => {
+    fileInput.value = "";
+    previewImg.src = "";
+    preview.style.display = "none";
+});
+</script>
+
+</body>
+</html>

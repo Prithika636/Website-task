@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>File Management System</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+    padding:30px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    background:#fff;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+
+h1{
+    text-align:center;
+    margin-bottom:20px;
+    color:#333;
+}
+
+.toolbar{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+    flex-wrap:wrap;
+}
+
+input[type="file"]{
+    display:none;
+}
+
+.btn{
+    padding:10px 15px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    color:#fff;
+}
+
+.upload-btn{
+    background:#007bff;
+}
+
+.clear-btn{
+    background:#dc3545;
+}
+
+.search-box{
+    flex:1;
+    min-width:200px;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th, td{
+    padding:12px;
+    border-bottom:1px solid #ddd;
+    text-align:left;
+}
+
+th{
+    background:#007bff;
+    color:white;
+}
+
+.action-btn{
+    padding:6px 10px;
+    border:none;
+    border-radius:4px;
+    cursor:pointer;
+    color:white;
+    margin-right:5px;
+}
+
+.download{
+    background:#28a745;
+}
+
+.delete{
+    background:#dc3545;
+}
+
+.empty{
+    text-align:center;
+    padding:20px;
+    color:#888;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📁 File Management System</h1>
+
+    <div class="toolbar">
+        <label class="btn upload-btn" for="fileInput">
+            Upload Files
+        </label>
+
+        <input type="file" id="fileInput" multiple>
+
+        <input
+            type="text"
+            id="search"
+            class="search-box"
+            placeholder="Search files..."
+        >
+
+        <button class="btn clear-btn" id="clearAll">
+            Clear All
+        </button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>File Name</th>
+                <th>Size</th>
+                <th>Type</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="fileTable">
+            <tr>
+                <td colspan="4" class="empty">
+                    No files uploaded
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+const fileInput = document.getElementById("fileInput");
+const fileTable = document.getElementById("fileTable");
+const search = document.getElementById("search");
+const clearAll = document.getElementById("clearAll");
+
+let files = [];
+
+function formatSize(bytes){
+    if(bytes < 1024) return bytes + " B";
+    if(bytes < 1024 * 1024)
+        return (bytes / 1024).toFixed(2) + " KB";
+    return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+}
+
+function renderFiles(filter = ""){
+    const filtered = files.filter(file =>
+        file.name.toLowerCase().includes(filter.toLowerCase())
+    );
+
+    if(filtered.length === 0){
+        fileTable.innerHTML = `
+            <tr>
+                <td colspan="4" class="empty">
+                    No files found
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    fileTable.innerHTML = "";
+
+    filtered.forEach((fileObj, index) => {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${fileObj.file.name}</td>
+            <td>${formatSize(fileObj.file.size)}</td>
+            <td>${fileObj.file.type || "Unknown"}</td>
+            <td>
+                <button class="action-btn download"
+                    onclick="downloadFile(${fileObj.id})">
+                    Download
+                </button>
+
+                <button class="action-btn delete"
+                    onclick="deleteFile(${fileObj.id})">
+                    Delete
+                </button>
+            </td>
+        `;
+
+        fileTable.appendChild(row);
+    });
+}
+
+fileInput.addEventListener("change", () => {
+    Array.from(fileInput.files).forEach(file => {
+        files.push({
+            id: Date.now() + Math.random(),
+            file
+        });
+    });
+
+    renderFiles(search.value);
+});
+
+function downloadFile(id){
+    const target = files.find(f => f.id === id);
+
+    if(!target) return;
+
+    const url = URL.createObjectURL(target.file);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = target.file.name;
+    a.click();
+
+    URL.revokeObjectURL(url);
+}
+
+function deleteFile(id){
+    files = files.filter(f => f.id !== id);
+    renderFiles(search.value);
+}
+
+clearAll.addEventListener("click", () => {
+    files = [];
+    renderFiles();
+});
+
+search.addEventListener("input", () => {
+    renderFiles(search.value);
+});
+
+renderFiles();
+</script>
+
+</body>
+</html>
+ 

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flask API Client</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#f5f5f5;
+    padding:20px;
+}
+
+.container{
+    max-width:700px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,.1);
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+button{
+    padding:10px 15px;
+    background:#007bff;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    margin:5px;
+}
+
+button:hover{
+    background:#0056b3;
+}
+
+pre{
+    background:#222;
+    color:#00ff00;
+    padding:15px;
+    border-radius:5px;
+    overflow:auto;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h2>Flask REST API Frontend</h2>
+
+<input type="text" id="name" placeholder="Name">
+<input type="email" id="email" placeholder="Email">
+
+<button onclick="createUser()">Create User</button>
+<button onclick="loadUsers()">Load Users</button>
+
+<h3>Response</h3>
+<pre id="output">Ready...</pre>
+
+</div>
+
+<script>
+
+const API = "http://localhost:5000/api/users";
+
+const output = document.getElementById("output");
+
+function show(data){
+    output.textContent =
+        JSON.stringify(data, null, 2);
+}
+
+async function loadUsers(){
+
+    try{
+
+        const response =
+            await fetch(API);
+
+        const data =
+            await response.json();
+
+        show(data);
+
+    }catch(error){
+
+        show({
+            error:error.message
+        });
+
+    }
+}
+
+async function createUser(){
+
+    const name =
+        document.getElementById("name").value;
+
+    const email =
+        document.getElementById("email").value;
+
+    try{
+
+        const response =
+            await fetch(API,{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    name,
+                    email
+                })
+            });
+
+        const data =
+            await response.json();
+
+        show(data);
+
+    }catch(error){
+
+        show({
+            error:error.message
+        });
+
+    }
+}
+
+</script>
+
+</body>
+</html>

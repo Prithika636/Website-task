@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Role Based Access Control</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f5f7fa;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.container{
+    width:450px;
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 5px 20px rgba(0,0,0,.15);
+}
+
+h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+input,select{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    background:#007bff;
+    color:white;
+    border-radius:6px;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+button:hover{
+    background:#0056b3;
+}
+
+.logout{
+    background:#dc3545;
+}
+
+.logout:hover{
+    background:#b52b3a;
+}
+
+.link{
+    text-align:center;
+    margin-top:15px;
+}
+
+.link a{
+    color:#007bff;
+    cursor:pointer;
+}
+
+.message{
+    margin-top:10px;
+    text-align:center;
+}
+
+.success{
+    color:green;
+}
+
+.error{
+    color:red;
+}
+
+.card{
+    margin-top:15px;
+    padding:15px;
+    border-radius:8px;
+    background:#eef5ff;
+}
+
+.hidden{
+    display:none;
+}
+
+.role-box{
+    margin-top:15px;
+    padding:15px;
+    border-radius:8px;
+    border-left:5px solid #007bff;
+    background:#f8fbff;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Register -->
+    <div id="registerPage">
+        <h2>Create Account</h2>
+
+        <input type="text" id="regName" placeholder="Username">
+
+        <input type="email" id="regEmail" placeholder="Email">
+
+        <input type="password" id="regPassword" placeholder="Password">
+
+        <select id="regRole">
+            <option value="User">User</option>
+            <option value="Manager">Manager</option>
+            <option value="Admin">Admin</option>
+        </select>
+
+        <button onclick="register()">Register</button>
+
+        <div id="regMsg" class="message"></div>
+
+        <div class="link">
+            Already have an account?
+            <a onclick="showLogin()">Login</a>
+        </div>
+    </div>
+
+    <!-- Login -->
+    <div id="loginPage" class="hidden">
+        <h2>Login</h2>
+
+        <input type="email" id="loginEmail" placeholder="Email">
+
+        <input type="password" id="loginPassword" placeholder="Password">
+
+        <button onclick="login()">Login</button>
+
+        <div id="loginMsg" class="message"></div>
+
+        <div class="link">
+            Need an account?
+            <a onclick="showRegister()">Register</a>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="hidden">
+
+        <h2>Dashboard</h2>
+
+        <div class="card">
+            <h3 id="welcome"></h3>
+            <p id="roleText"></p>
+        </div>
+
+        <!-- User -->
+        <div id="userSection" class="role-box hidden">
+            <h4>User Access</h4>
+            <p>View personal profile and dashboard.</p>
+        </div>
+
+        <!-- Manager -->
+        <div id="managerSection" class="role-box hidden">
+            <h4>Manager Access</h4>
+            <p>Manage reports, teams, and projects.</p>
+        </div>
+
+        <!-- Admin -->
+        <div id="adminSection" class="role-box hidden">
+            <h4>Admin Access</h4>
+            <p>Manage users, permissions, and system settings.</p>
+        </div>
+
+        <button class="logout" onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+const registerPage = document.getElementById("registerPage");
+const loginPage = document.getElementById("loginPage");
+const dashboard = document.getElementById("dashboard");
+
+function showLogin(){
+    registerPage.classList.add("hidden");
+    loginPage.classList.remove("hidden");
+}
+
+function showRegister(){
+    loginPage.classList.add("hidden");
+    registerPage.classList.remove("hidden");
+}
+
+function register(){
+
+    const name =
+        document.getElementById("regName").value.trim();
+
+    const email =
+        document.getElementById("regEmail").value.trim();
+
+    const password =
+        document.getElementById("regPassword").value;
+
+    const role =
+        document.getElementById("regRole").value;
+
+    const msg =
+        document.getElementById("regMsg");
+
+    if(!name || !email || !password){
+        msg.className = "message error";
+        msg.textContent = "Fill all fields";
+        return;
+    }
+
+    let users =
+        JSON.parse(localStorage.getItem("users")) || [];
+
+    if(users.some(u => u.email === email)){
+        msg.className = "message error";
+        msg.textContent = "Email already registered";
+        return;
+    }
+
+    users.push({
+        name,
+        email,
+        password,
+        role
+    });
+
+    localStorage.setItem(
+        "users",
+        JSON.stringify(users)
+    );
+
+    msg.className = "message success";
+    msg.textContent = "Registration successful";
+
+    setTimeout(showLogin,1000);
+}
+
+function login(){
+
+    const email =
+        document.getElementById("loginEmail").value.trim();
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+    const users =
+        JSON.parse(localStorage.getItem("users")) || [];
+
+    const user =
+        users.find(
+            u => u.email === email &&
+                 u.password === password
+        );
+
+    const msg =
+        document.getElementById("loginMsg");
+
+    if(!user){
+        msg.className = "message error";
+        msg.textContent = "Invalid credentials";
+        return;
+    }
+
+    localStorage.setItem(
+        "currentUser",
+        JSON.stringify(user)
+    );
+
+    loadDashboard();
+}
+
+function loadDashboard(){
+
+    const user =
+        JSON.parse(localStorage.getItem("currentUser"));
+
+    if(!user) return;
+
+    registerPage.classList.add("hidden");
+    loginPage.classList.add("hidden");
+    dashboard.classList.remove("hidden");
+
+    document.getElementById("welcome").innerText =
+        "Welcome " + user.name;
+
+    document.getElementById("roleText").innerText =
+        "Role: " + user.role;
+
+    document.getElementById("userSection")
+        .classList.add("hidden");
+
+    document.getElementById("managerSection")
+        .classList.add("hidden");
+
+    document.getElementById("adminSection")
+        .classList.add("hidden");
+
+    if(user.role === "User"){
+        document.getElementById("userSection")
+            .classList.remove("hidden");
+    }
+
+    if(user.role === "Manager"){
+        document.getElementById("userSection")
+            .classList.remove("hidden");
+
+        document.getElementById("managerSection")
+            .classList.remove("hidden");
+    }
+
+    if(user.role === "Admin"){
+        document.getElementById("userSection")
+            .classList.remove("hidden");
+
+        document.getElementById("managerSection")
+            .classList.remove("hidden");
+
+        document.getElementById("adminSection")
+            .classList.remove("hidden");
+    }
+}
+
+function logout(){
+    localStorage.removeItem("currentUser");
+
+    dashboard.classList.add("hidden");
+    loginPage.classList.remove("hidden");
+}
+
+loadDashboard();
+
+</script>
+
+</body>
+</html>

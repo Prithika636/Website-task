@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Testimonial Section</title>
+
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+
+body{
+
+    background:#f1f5f9;
+}
+
+
+/* Testimonial Section */
+
+.testimonial-section{
+
+    padding:60px 10%;
+    text-align:center;
+
+}
+
+
+.testimonial-section h1{
+
+    font-size:36px;
+    color:#1e293b;
+    margin-bottom:15px;
+
+}
+
+
+.testimonial-section p{
+
+    color:#64748b;
+    margin-bottom:40px;
+
+}
+
+
+
+/* Cards */
+
+.testimonial-container{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+
+}
+
+
+
+.testimonial-card{
+
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.1);
+    transition:0.3s;
+
+}
+
+
+.testimonial-card:hover{
+
+    transform:translateY(-10px);
+
+}
+
+
+
+/* Profile */
+
+.profile{
+
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin-bottom:20px;
+
+}
+
+
+.profile img{
+
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    object-fit:cover;
+
+}
+
+
+.profile h3{
+
+    color:#1e293b;
+
+}
+
+
+.profile span{
+
+    color:#64748b;
+    font-size:14px;
+
+}
+
+
+
+/* Review */
+
+.review{
+
+    color:#475569;
+    line-height:1.6;
+    margin-bottom:15px;
+
+}
+
+
+
+/* Stars */
+
+.stars{
+
+    color:#facc15;
+    font-size:20px;
+
+}
+
+
+
+/* Responsive */
+
+@media(max-width:600px){
+
+.testimonial-section h1{
+
+    font-size:28px;
+
+}
+
+}
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+
+<section class="testimonial-section">
+
+
+<h1>What Our Clients Say</h1>
+
+<p>
+Real feedback from our valuable customers
+</p>
+
+
+
+<div class="testimonial-container">
+
+
+
+<!-- Testimonial 1 -->
+
+
+<div class="testimonial-card">
+
+
+<div class="profile">
+
+<img src="https://randomuser.me/api/portraits/men/32.jpg">
+
+
+<div>
+
+<h3>John Smith</h3>
+
+<span>Software Developer</span>
+
+</div>
+
+
+</div>
+
+
+<p class="review">
+
+"Excellent service and amazing support.
+The team delivered the project on time
+with great quality."
+
+</p>
+
+
+<div class="stars">
+★★★★★
+</div>
+
+
+</div>
+
+
+
+
+
+
+<!-- Testimonial 2 -->
+
+
+<div class="testimonial-card">
+
+
+<div class="profile">
+
+<img src="https://randomuser.me/api/portraits/women/44.jpg">
+
+
+<div>
+
+<h3>Sarah Johnson</h3>
+
+<span>Business Owner</span>
+
+</div>
+
+</div>
+
+
+<p class="review">
+
+"Very professional team. Their solution
+helped our business grow faster and
+improved our customer experience."
+
+</p>
+
+
+<div class="stars">
+★★★★★
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Testimonial 3 -->
+
+
+<div class="testimonial-card">
+
+
+<div class="profile">
+
+
+<img src="https://randomuser.me/api/portraits/men/75.jpg">
+
+
+<div>
+
+<h3>David Williams</h3>
+
+<span>Marketing Manager</span>
+
+</div>
+
+
+</div>
+
+
+
+<p class="review">
+
+"Great design, excellent communication,
+and outstanding results. Highly recommended."
+
+</p>
+
+
+<div class="stars">
+★★★★☆
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+
+</section>
+
+
+
+</body>
+
+</html>

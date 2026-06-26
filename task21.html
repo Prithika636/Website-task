@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Portfolio</title>
+
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+
+body{
+    background:#f8fafc;
+    color:#1e293b;
+}
+
+
+/* Navigation */
+
+.navbar{
+
+    background:#0f172a;
+    color:white;
+    padding:20px 10%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+}
+
+
+.logo{
+
+    font-size:28px;
+    font-weight:bold;
+    color:#38bdf8;
+
+}
+
+
+.navbar ul{
+
+    display:flex;
+    list-style:none;
+    gap:25px;
+
+}
+
+
+.navbar a{
+
+    color:white;
+    text-decoration:none;
+
+}
+
+
+
+/* Hero */
+
+.hero{
+
+    height:90vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    color:white;
+
+}
+
+
+.hero h1{
+
+    font-size:50px;
+
+}
+
+
+.hero span{
+
+    color:#facc15;
+
+}
+
+
+.hero p{
+
+    font-size:20px;
+    margin:20px;
+
+}
+
+
+.btn{
+
+    display:inline-block;
+    background:white;
+    color:#2563eb;
+    padding:12px 30px;
+    border-radius:25px;
+    text-decoration:none;
+    font-weight:bold;
+
+}
+
+
+
+/* Sections */
+
+section{
+
+    padding:60px 10%;
+
+}
+
+
+.title{
+
+    text-align:center;
+    font-size:35px;
+    margin-bottom:40px;
+
+}
+
+
+
+/* About */
+
+.about{
+
+    text-align:center;
+    line-height:1.8;
+
+}
+
+
+
+/* Skills */
+
+.skills{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+
+}
+
+
+.skill{
+
+    background:white;
+    padding:25px;
+    text-align:center;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+
+}
+
+
+
+
+
+/* Projects */
+
+.projects{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+
+}
+
+
+
+.project{
+
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+
+}
+
+
+.project h3{
+
+    color:#2563eb;
+    margin-bottom:10px;
+
+}
+
+
+
+
+
+/* Contact */
+
+.contact{
+
+    background:#0f172a;
+    color:white;
+    text-align:center;
+
+}
+
+
+.contact p{
+
+    margin:10px;
+
+}
+
+
+
+/* Footer */
+
+footer{
+
+    background:#020617;
+    color:white;
+    text-align:center;
+    padding:20px;
+
+}
+
+
+
+
+/* Responsive */
+
+@media(max-width:700px){
+
+
+.navbar{
+
+    flex-direction:column;
+    gap:15px;
+
+}
+
+
+.navbar ul{
+
+    flex-direction:column;
+    text-align:center;
+
+}
+
+
+.hero h1{
+
+    font-size:35px;
+
+}
+
+
+}
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+
+<!-- Navigation -->
+
+
+<nav class="navbar">
+
+<div class="logo">
+Portfolio
+</div>
+
+
+<ul>
+
+<li><a href="#">Home</a></li>
+
+<li><a href="#">About</a></li>
+
+<li><a href="#">Skills</a></li>
+
+<li><a href="#">Projects</a></li>
+
+<li><a href="#">Contact</a></li>
+
+</ul>
+
+
+</nav>
+
+
+
+
+
+
+<!-- Hero -->
+
+
+<section class="hero">
+
+
+<div>
+
+<h1>
+Hi, I'm <span>John Smith</span>
+</h1>
+
+
+<p>
+Web Developer & UI Designer
+</p>
+
+
+<a href="#" class="btn">
+Download CV
+</a>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- About -->
+
+
+<section>
+
+
+<h2 class="title">
+About Me
+</h2>
+
+
+<div class="about">
+
+
+<p>
+
+I am a passionate web developer who creates modern,
+responsive and user-friendly websites using HTML,
+CSS, JavaScript and modern technologies.
+
+</p>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- Skills -->
+
+
+<section>
+
+
+<h2 class="title">
+My Skills
+</h2>
+
+
+
+<div class="skills">
+
+
+<div class="skill">
+<h3>HTML</h3>
+<p>90% Expert</p>
+</div>
+
+
+<div class="skill">
+<h3>CSS</h3>
+<p>85% Expert</p>
+</div>
+
+
+<div class="skill">
+<h3>JavaScript</h3>
+<p>80% Expert</p>
+</div>
+
+
+<div class="skill">
+<h3>UI Design</h3>
+<p>85% Expert</p>
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- Projects -->
+
+
+<section>
+
+
+<h2 class="title">
+My Projects
+</h2>
+
+
+
+<div class="projects">
+
+
+<div class="project">
+
+<h3>E-Commerce Website</h3>
+
+<p>
+Online shopping website with responsive design.
+</p>
+
+</div>
+
+
+
+<div class="project">
+
+<h3>Dashboard System</h3>
+
+<p>
+Admin dashboard with charts and management tools.
+</p>
+
+</div>
+
+
+
+<div class="project">
+
+<h3>Mobile App UI</h3>
+
+<p>
+Modern mobile application interface design.
+</p>
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- Contact -->
+
+
+<section class="contact">
+
+
+<h2 class="title">
+Contact Me
+</h2>
+
+
+<p>Email: johnsmith@gmail.com</p>
+
+<p>Phone: +91 9876543210</p>
+
+<p>Location: Mumbai, India</p>
+
+
+</section>
+
+
+
+
+
+<footer>
+
+© 2026 John Smith | All Rights Reserved
+
+</footer>
+
+
+
+</body>
+
+</html>

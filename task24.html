@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Shopping Cart System</title>
+
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+
+body{
+    background:#f1f5f9;
+    padding:30px;
+}
+
+
+/* Container */
+
+.container{
+
+    max-width:1000px;
+    margin:auto;
+
+}
+
+
+h1{
+
+    text-align:center;
+    margin-bottom:30px;
+
+}
+
+
+/* Products */
+
+.products{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+
+}
+
+
+
+.product{
+
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+    text-align:center;
+
+}
+
+
+.product img{
+
+    width:100%;
+    height:150px;
+    object-fit:cover;
+    border-radius:8px;
+
+}
+
+
+.product h3{
+
+    margin:15px 0;
+
+}
+
+
+.price{
+
+    font-size:20px;
+    color:#2563eb;
+    font-weight:bold;
+
+}
+
+
+
+button{
+
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:6px;
+    cursor:pointer;
+    margin-top:10px;
+
+}
+
+
+button:hover{
+
+    background:#1d4ed8;
+
+}
+
+
+
+/* Cart */
+
+.cart{
+
+    margin-top:40px;
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+
+}
+
+
+.cart-item{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px;
+    border-bottom:1px solid #ddd;
+
+}
+
+
+.quantity button{
+
+    padding:5px 10px;
+    margin:5px;
+
+}
+
+
+
+.total{
+
+    text-align:right;
+    font-size:25px;
+    font-weight:bold;
+    margin-top:20px;
+
+}
+
+
+
+@media(max-width:600px){
+
+.cart-item{
+
+    flex-direction:column;
+    gap:10px;
+
+}
+
+}
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>🛒 Shopping Cart</h1>
+
+
+
+<!-- Products -->
+
+
+<div class="products">
+
+
+
+<div class="product">
+
+<img src="https://picsum.photos/300/200?1">
+
+<h3>Laptop</h3>
+
+<p class="price">$800</p>
+
+<button onclick="addToCart('Laptop',800)">
+Add To Cart
+</button>
+
+
+</div>
+
+
+
+
+
+<div class="product">
+
+<img src="https://picsum.photos/300/200?2">
+
+<h3>Smartphone</h3>
+
+<p class="price">$500</p>
+
+<button onclick="addToCart('Smartphone',500)">
+Add To Cart
+</button>
+
+
+</div>
+
+
+
+
+
+
+<div class="product">
+
+<img src="https://picsum.photos/300/200?3">
+
+<h3>Headphones</h3>
+
+<p class="price">$100</p>
+
+<button onclick="addToCart('Headphones',100)">
+Add To Cart
+</button>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Cart Section -->
+
+
+<div class="cart">
+
+
+<h2>Your Cart</h2>
+
+
+<div id="cartItems">
+
+<p>Your cart is empty</p>
+
+</div>
+
+
+
+<div class="total">
+
+Total: $<span id="total">0</span>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<script>
+
+
+let cart=[];
+
+
+
+function addToCart(name,price){
+
+
+let product=cart.find(item=>item.name===name);
+
+
+
+if(product){
+
+product.quantity++;
+
+}
+
+else{
+
+cart.push({
+
+name:name,
+price:price,
+quantity:1
+
+});
+
+}
+
+
+displayCart();
+
+
+}
+
+
+
+
+
+function displayCart(){
+
+
+let cartItems=document.getElementById("cartItems");
+
+let total=document.getElementById("total");
+
+
+cartItems.innerHTML="";
+
+
+let sum=0;
+
+
+
+if(cart.length===0){
+
+cartItems.innerHTML="<p>Your cart is empty</p>";
+
+}
+
+
+
+
+cart.forEach((item,index)=>{
+
+
+sum += item.price * item.quantity;
+
+
+
+cartItems.innerHTML += `
+
+
+<div class="cart-item">
+
+
+<div>
+
+<h3>${item.name}</h3>
+
+<p>$${item.price}</p>
+
+</div>
+
+
+
+<div class="quantity">
+
+<button onclick="changeQuantity(${index},-1)">
+-
+</button>
+
+
+${item.quantity}
+
+
+<button onclick="changeQuantity(${index},1)">
++
+</button>
+
+
+<button onclick="removeItem(${index})">
+Remove
+</button>
+
+
+</div>
+
+
+
+</div>
+
+
+`;
+
+
+
+});
+
+
+
+total.innerHTML=sum;
+
+
+
+}
+
+
+
+
+function changeQuantity(index,value){
+
+
+cart[index].quantity += value;
+
+
+
+if(cart[index].quantity<=0){
+
+cart.splice(index,1);
+
+}
+
+
+displayCart();
+
+
+}
+
+
+
+
+
+function removeItem(index){
+
+
+cart.splice(index,1);
+
+displayCart();
+
+
+}
+
+
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Blogging Platform</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f6f8;
+    margin:0;
+}
+
+header{
+    background:#2563eb;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+
+.container{
+    width:90%;
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
+
+input, textarea{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+textarea{
+    height:120px;
+}
+
+button{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:5px;
+    cursor:pointer;
+    margin:5px;
+}
+
+button.delete{
+    background:#dc2626;
+}
+
+button.edit{
+    background:#f59e0b;
+}
+
+
+.blog{
+    background:white;
+    padding:20px;
+    margin:15px 0;
+    border-radius:10px;
+    box-shadow:0 2px 8px #ccc;
+}
+
+
+.hidden{
+    display:none;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>📝 Blogging Platform</h1>
+
+<button onclick="showHome()">
+Home
+</button>
+
+<button onclick="showCreate()">
+Create Blog
+</button>
+
+</header>
+
+
+
+<div class="container">
+
+
+<div id="home">
+
+
+<input 
+type="text"
+id="search"
+placeholder="Search blogs..."
+onkeyup="searchBlog()"
+>
+
+
+<h2>Latest Posts</h2>
+
+
+<div id="posts"></div>
+
+
+</div>
+
+
+
+
+
+<div id="create" class="hidden">
+
+
+<h2>Create / Edit Blog</h2>
+
+
+<input 
+id="title"
+placeholder="Blog Title"
+>
+
+
+<input 
+id="author"
+placeholder="Author Name"
+>
+
+
+<textarea 
+id="content"
+placeholder="Write your blog..."
+></textarea>
+
+
+
+<button onclick="savePost()">
+Save Post
+</button>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+<script>
+
+
+let blogs =
+JSON.parse(
+localStorage.getItem("blogs")
+) || [];
+
+
+
+let editId = null;
+
+
+
+function displayBlogs(data=blogs){
+
+
+let output =
+document.getElementById("posts");
+
+
+output.innerHTML="";
+
+
+data.forEach((blog,index)=>{
+
+
+output.innerHTML += `
+
+<div class="blog">
+
+<h2>
+${blog.title}
+</h2>
+
+
+<p>
+${blog.content}
+</p>
+
+
+<b>
+Author:
+</b>
+${blog.author}
+
+
+<br><br>
+
+
+<button class="edit"
+onclick="editPost(${index})">
+Edit
+</button>
+
+
+<button class="delete"
+onclick="deletePost(${index})">
+Delete
+</button>
+
+
+</div>
+
+`;
+
+});
+
+
+}
+
+
+
+
+
+function savePost(){
+
+
+let title =
+document.getElementById("title").value;
+
+
+let author =
+document.getElementById("author").value;
+
+
+let content =
+document.getElementById("content").value;
+
+
+
+if(title=="" || content==""){
+alert("Enter all fields");
+return;
+}
+
+
+
+let post={
+
+title:title,
+
+author:author,
+
+content:content
+
+};
+
+
+
+if(editId!==null){
+
+
+blogs[editId]=post;
+
+editId=null;
+
+
+}
+
+else{
+
+
+blogs.push(post);
+
+
+}
+
+
+
+localStorage.setItem(
+"blogs",
+JSON.stringify(blogs)
+);
+
+
+
+clearForm();
+
+displayBlogs();
+
+showHome();
+
+
+}
+
+
+
+
+
+function editPost(id){
+
+
+let blog=blogs[id];
+
+
+document.getElementById(
+"title"
+).value=blog.title;
+
+
+document.getElementById(
+"author"
+).value=blog.author;
+
+
+document.getElementById(
+"content"
+).value=blog.content;
+
+
+editId=id;
+
+
+showCreate();
+
+
+}
+
+
+
+
+
+
+function deletePost(id){
+
+
+if(confirm("Delete this post?")){
+
+
+blogs.splice(id,1);
+
+
+localStorage.setItem(
+"blogs",
+JSON.stringify(blogs)
+);
+
+
+displayBlogs();
+
+
+}
+
+
+}
+
+
+
+
+
+function searchBlog(){
+
+
+let text =
+document.getElementById(
+"search"
+).value.toLowerCase();
+
+
+
+let result =
+blogs.filter(blog=>
+
+blog.title
+.toLowerCase()
+.includes(text)
+
+);
+
+
+
+displayBlogs(result);
+
+
+}
+
+
+
+
+
+
+function clearForm(){
+
+
+document.getElementById(
+"title"
+).value="";
+
+
+document.getElementById(
+"author"
+).value="";
+
+
+document.getElementById(
+"content"
+).value="";
+
+
+}
+
+
+
+
+
+function showHome(){
+
+
+document.getElementById(
+"home"
+).classList.remove(
+"hidden"
+);
+
+
+document.getElementById(
+"create"
+).classList.add(
+"hidden"
+);
+
+
+displayBlogs();
+
+
+}
+
+
+
+
+
+function showCreate(){
+
+
+document.getElementById(
+"home"
+).classList.add(
+"hidden"
+);
+
+
+document.getElementById(
+"create"
+).classList.remove(
+"hidden"
+);
+
+
+}
+
+
+
+
+
+displayBlogs();
+
+
+</script>
+
+
+</body>
+</html>
