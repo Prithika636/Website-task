@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Python Web App</title>
+
+<style>
+body{
+    font-family:Arial;
+    background:#f2f2f2;
+    padding:30px;
+}
+
+.container{
+    width:450px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px gray;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+}
+
+button{
+    padding:10px;
+    background:#007bff;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+.delete{
+    background:red;
+}
+
+li{
+    background:#eee;
+    padding:10px;
+    margin:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>User Management</h2>
+
+<input id="name" placeholder="Name">
+
+<input id="email" placeholder="Email">
+
+<button onclick="addUser()">Add User</button>
+
+<ul id="list"></ul>
+
+</div>
+
+
+<script>
+
+async function addUser(){
+
+let name=document.getElementById("name").value;
+let email=document.getElementById("email").value;
+
+
+await fetch("/users",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+name,
+email
+})
+});
+
+loadUsers();
+
+}
+
+
+
+async function loadUsers(){
+
+let res=await fetch("/users");
+
+let data=await res.json();
+
+let list=document.getElementById("list");
+
+list.innerHTML="";
+
+
+data.forEach(u=>{
+
+list.innerHTML+=`
+
+<li>
+
+<b>${u.name}</b>
+<br>
+${u.email}
+
+</li>
+
+`;
+
+});
+
+}
+
+
+loadUsers();
+
+</script>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Cloud Storage</title>
+
+</head>
+
+
+<body>
+
+
+<h2>Cloud Storage System</h2>
+
+
+<input type="file" id="file">
+
+
+<button onclick="uploadFile()">
+Upload
+</button>
+
+
+<h3>Uploaded Files</h3>
+
+
+<ul id="files"></ul>
+
+
+
+<script>
+
+
+function uploadFile(){
+
+
+let file =
+document.getElementById("file").files[0];
+
+
+if(!file){
+
+alert("Select File");
+
+return;
+
+}
+
+
+let li =
+document.createElement("li");
+
+
+li.innerHTML =
+file.name+" uploaded";
+
+
+document.getElementById("files")
+.appendChild(li);
+
+
+}
+
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,220 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>User Management</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#eee;
+padding:30px;
+}
+
+.box{
+
+width:400px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:10px;
+
+}
+
+input{
+
+width:100%;
+padding:10px;
+margin:5px;
+
+}
+
+button{
+
+padding:10px;
+background:#007bff;
+color:white;
+border:0;
+cursor:pointer;
+
+}
+
+.delete{
+
+background:red;
+
+}
+
+li{
+
+background:#ddd;
+margin:10px;
+padding:10px;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="box">
+
+
+<h2>User System</h2>
+
+
+<input id="name" placeholder="Name">
+
+<input id="email" placeholder="Email">
+
+
+<button onclick="addUser()">
+Add User
+</button>
+
+
+<ul id="list"></ul>
+
+
+</div>
+
+
+
+<script>
+
+
+async function addUser(){
+
+
+let name =
+document.getElementById("name").value;
+
+
+let email =
+document.getElementById("email").value;
+
+
+
+await fetch("/users",
+{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify({
+
+name,
+email
+
+})
+
+});
+
+
+load();
+
+
+}
+
+
+
+
+async function load(){
+
+
+let res =
+await fetch("/users");
+
+
+let data =
+await res.json();
+
+
+let list =
+document.getElementById("list");
+
+
+list.innerHTML="";
+
+
+data.forEach(u=>{
+
+
+list.innerHTML +=
+
+`
+
+<li>
+
+<b>${u.name}</b>
+<br>
+
+${u.email}
+
+<br>
+
+<button class="delete"
+onclick="removeUser(${u.id})">
+
+Delete
+
+</button>
+
+
+</li>
+
+`;
+
+});
+
+
+}
+
+
+
+
+async function removeUser(id){
+
+
+await fetch("/users/"+id,
+
+{
+
+method:"DELETE"
+
+});
+
+
+load();
+
+}
+
+
+
+load();
+
+
+</script>
+
+
+</body>
+
+</html>
+
+
+
+
+
+

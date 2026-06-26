@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+
+<h2>Food Delivery</h2>
+
+
+<button onclick="order('Pizza')">
+Pizza
+</button>
+
+
+<button onclick="order('Burger')">
+Burger
+</button>
+
+
+<h3 id="order"></h3>
+
+
+
+<script>
+
+
+function order(food){
+
+document.getElementById("order")
+.innerHTML=
+
+food+
+" ordered successfully";
+
+
+}
+
+
+</script>
+
+
+</body>
+</html>

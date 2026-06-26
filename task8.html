@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OTP Verification</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+}
+
+.otp-container{
+    width:100%;
+    max-width:400px;
+    background:white;
+    padding:40px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.otp-container h2{
+    color:#1e293b;
+    margin-bottom:15px;
+}
+
+.otp-container p{
+    color:#64748b;
+    margin-bottom:25px;
+    line-height:1.5;
+}
+
+.otp-box{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    margin-bottom:25px;
+}
+
+.otp-box input{
+    width:45px;
+    height:50px;
+    text-align:center;
+    font-size:22px;
+    border:2px solid #cbd5e1;
+    border-radius:8px;
+}
+
+.otp-box input:focus{
+    outline:none;
+    border-color:#2563eb;
+}
+
+.verify-btn{
+    width:100%;
+    padding:12px;
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.verify-btn:hover{
+    background:#1d4ed8;
+}
+
+.resend{
+    margin-top:20px;
+    color:#64748b;
+}
+
+.resend a{
+    color:#2563eb;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.message{
+    margin-top:15px;
+    font-weight:bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="otp-container">
+
+    <h2>OTP Verification</h2>
+
+    <p>
+        Enter the 6-digit OTP sent to your registered mobile number.
+    </p>
+
+    <div class="otp-box">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+    </div>
+
+    <button class="verify-btn" onclick="verifyOTP()">
+        Verify OTP
+    </button>
+
+    <div class="resend">
+        Didn't receive OTP?
+        <a href="#">Resend OTP</a>
+    </div>
+
+    <div class="message" id="message"></div>
+
+</div>
+
+
+<script>
+
+let inputs = document.querySelectorAll(".otp-box input");
+
+inputs.forEach((input,index)=>{
+
+    input.addEventListener("input",()=>{
+        if(input.value.length === 1 && index < inputs.length-1){
+            inputs[index+1].focus();
+        }
+    });
+
+    input.addEventListener("keydown",(e)=>{
+        if(e.key === "Backspace" && input.value === "" && index > 0){
+            inputs[index-1].focus();
+        }
+    });
+
+});
+
+
+function verifyOTP(){
+
+    let otp="";
+
+    inputs.forEach(input=>{
+        otp += input.value;
+    });
+
+    let message=document.getElementById("message");
+
+    if(otp.length === 6){
+        message.style.color="green";
+        message.innerHTML="OTP Verified Successfully!";
+    }
+    else{
+        message.style.color="red";
+        message.innerHTML="Please enter a valid 6-digit OTP.";
+    }
+
+}
+
+</script>
+
+</body>
+</html>

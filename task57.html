@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Excel Export System</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js">
+</script>
+
+<style>
+
+body{
+    font-family:Arial;
+    margin:40px;
+}
+
+table{
+    border-collapse:collapse;
+    width:500px;
+}
+
+th,td{
+    border:1px solid black;
+    padding:10px;
+}
+
+button{
+    margin-top:20px;
+    padding:12px;
+    background:green;
+    color:white;
+    border:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<h2>User Data Export</h2>
+
+
+<table id="userTable">
+
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Email</th>
+<th>Role</th>
+</tr>
+
+
+<tr>
+<td>1</td>
+<td>John</td>
+<td>john@gmail.com</td>
+<td>Admin</td>
+</tr>
+
+
+<tr>
+<td>2</td>
+<td>David</td>
+<td>david@gmail.com</td>
+<td>User</td>
+</tr>
+
+
+<tr>
+<td>3</td>
+<td>Mary</td>
+<td>mary@gmail.com</td>
+<td>Manager</td>
+</tr>
+
+
+</table>
+
+
+<br>
+
+
+<button onclick="exportExcel()">
+Export Excel
+</button>
+
+
+
+<script>
+
+
+function exportExcel(){
+
+
+let table =
+document.getElementById("userTable");
+
+
+let workbook =
+XLSX.utils.table_to_book(table);
+
+
+XLSX.writeFile(
+workbook,
+"users.xlsx"
+);
+
+
+}
+
+
+</script>
+
+
+</body>
+</html>

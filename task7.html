@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forgot Password</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    padding:20px;
+}
+
+.forgot-container{
+    width:100%;
+    max-width:400px;
+    background:white;
+    padding:40px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    text-align:center;
+}
+
+.forgot-container h2{
+    color:#1e293b;
+    margin-bottom:15px;
+}
+
+.forgot-container p{
+    color:#64748b;
+    font-size:15px;
+    margin-bottom:25px;
+    line-height:1.5;
+}
+
+.input-group{
+    text-align:left;
+    margin-bottom:20px;
+}
+
+.input-group label{
+    display:block;
+    margin-bottom:8px;
+    color:#475569;
+    font-weight:bold;
+}
+
+.input-group input{
+    width:100%;
+    padding:12px;
+    border:1px solid #cbd5e1;
+    border-radius:8px;
+    font-size:16px;
+}
+
+.input-group input:focus{
+    outline:none;
+    border-color:#2563eb;
+}
+
+.reset-btn{
+    width:100%;
+    padding:12px;
+    border:none;
+    background:#2563eb;
+    color:white;
+    font-size:16px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.reset-btn:hover{
+    background:#1d4ed8;
+}
+
+.back-login{
+    margin-top:20px;
+}
+
+.back-login a{
+    color:#2563eb;
+    text-decoration:none;
+    font-weight:bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="forgot-container">
+
+    <h2>Forgot Password?</h2>
+
+    <p>
+        Enter your email address and we will send you a link
+        to reset your password.
+    </p>
+
+    <form>
+
+        <div class="input-group">
+            <label>Email Address</label>
+            <input 
+                type="email" 
+                placeholder="Enter your email"
+                required>
+        </div>
+
+        <button class="reset-btn" type="submit">
+            Send Reset Link
+        </button>
+
+    </form>
+
+    <div class="back-login">
+        <a href="login.html">
+            ← Back to Login
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>

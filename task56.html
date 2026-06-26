@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+</script>
+
+
+</head>
+
+
+<body>
+
+
+<h2>PDF Export</h2>
+
+
+<div id="content">
+
+User Report
+
+Total Users : 500
+
+Sales : 25000
+
+</div>
+
+
+<button onclick="exportPDF()">
+
+Download PDF
+
+</button>
+
+
+
+<script>
+
+
+function exportPDF(){
+
+
+const {jsPDF}=window.jspdf;
+
+
+let pdf=new jsPDF();
+
+
+let text=
+document.getElementById("content")
+.innerText;
+
+
+pdf.text(
+text,
+20,
+20
+);
+
+
+pdf.save(
+"report.pdf"
+);
+
+
+}
+
+
+
+</script>
+
+
+</body>
+
+</html>

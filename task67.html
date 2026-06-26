@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>FinTech App</title>
+
+<style>
+
+body{
+font-family:Arial;
+}
+
+.box{
+background:#222;
+color:white;
+padding:20px;
+margin:20px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<h2>FinTech Application</h2>
+
+
+<div class="box">
+
+<h3>Wallet Balance</h3>
+
+<h1 id="money">
+10000
+</h1>
+
+</div>
+
+
+<input id="amount"
+placeholder="Amount">
+
+
+<button onclick="addMoney()">
+Add Money
+</button>
+
+
+<button onclick="pay()">
+Payment
+</button>
+
+
+<script>
+
+
+let money=10000;
+
+
+function addMoney(){
+
+let a=
+Number(amount.value);
+
+money+=a;
+
+display();
+
+}
+
+
+
+function pay(){
+
+let a=
+Number(amount.value);
+
+
+if(a<=money)
+money-=a;
+
+
+display();
+
+}
+
+
+
+function display(){
+
+document.getElementById("money")
+.innerHTML=money;
+
+}
+
+
+</script>
+
+
+</body>
+</html>

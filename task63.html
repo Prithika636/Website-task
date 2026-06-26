@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+
+<h2>Hotel Booking</h2>
+
+
+<input id="guest"
+placeholder="Guest Name">
+
+
+<select id="room">
+
+<option>
+Single Room
+</option>
+
+<option>
+Double Room
+</option>
+
+</select>
+
+
+<button onclick="book()">
+Book Room
+</button>
+
+
+<p id="result"></p>
+
+
+
+<script>
+
+
+function book(){
+
+
+let guest=
+document.getElementById("guest").value;
+
+
+let room=
+document.getElementById("room").value;
+
+
+document.getElementById("result")
+.innerHTML=
+
+guest+
+" booked "+
+room;
+
+
+}
+
+
+</script>
+
+
+</body>
+</html>

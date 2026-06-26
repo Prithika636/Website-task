@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+<h2>CRM Customer Management</h2>
+
+
+<input id="customer"
+placeholder="Customer Name">
+
+
+<button onclick="addCustomer()">
+Add Customer
+</button>
+
+
+<table border="1">
+
+<tbody id="customers">
+
+</tbody>
+
+</table>
+
+
+
+<script>
+
+
+function addCustomer(){
+
+
+let name=
+document.getElementById("customer").value;
+
+
+document.getElementById("customers")
+.innerHTML+=
+
+`
+<tr>
+<td>${name}</td>
+<td>Active</td>
+</tr>
+`;
+
+
+}
+
+</script>
+
+
+</body>
+</html>

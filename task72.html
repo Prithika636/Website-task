@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>HR Management</title>
+
+</head>
+
+
+<body>
+
+
+<h2>Employee Management System</h2>
+
+
+<input id="emp"
+placeholder="Employee Name">
+
+
+<input id="role"
+placeholder="Role">
+
+
+<button onclick="addEmployee()">
+Add Employee
+</button>
+
+
+<h3>Employees</h3>
+
+
+<ul id="employees"></ul>
+
+
+
+<script>
+
+
+function addEmployee(){
+
+
+let name=
+document.getElementById("emp").value;
+
+
+let role=
+document.getElementById("role").value;
+
+
+let li =
+document.createElement("li");
+
+
+li.innerHTML =
+name+" - "+role;
+
+
+document.getElementById("employees")
+.appendChild(li);
+
+
+}
+
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Internship Portal</title>
+</head>
+
+
+<body>
+
+
+<h2>Internship Registration</h2>
+
+
+<input id="name" placeholder="Name">
+
+<input id="course" placeholder="Course">
+
+
+<button onclick="apply()">
+Apply
+</button>
+
+
+<h3>Applicants</h3>
+
+<ul id="list"></ul>
+
+
+<script>
+
+
+function apply(){
+
+let name=
+document.getElementById("name").value;
+
+
+let course=
+document.getElementById("course").value;
+
+
+let li=document.createElement("li");
+
+
+li.innerHTML=
+name+" - "+course;
+
+
+document.getElementById("list")
+.appendChild(li);
+
+
+}
+
+</script>
+
+
+</body>
+</html>

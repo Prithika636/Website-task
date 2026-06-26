@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Business Analytics</title>
+
+
+<style>
+
+.card{
+
+display:inline-block;
+
+background:#3498db;
+
+color:white;
+
+padding:20px;
+
+margin:10px;
+
+border-radius:10px;
+
+}
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+<h2>Business Analytics Dashboard</h2>
+
+
+<div class="card">
+
+<h3>Revenue</h3>
+
+<h1 id="revenue">
+0
+</h1>
+
+</div>
+
+
+<div class="card">
+
+<h3>Customers</h3>
+
+<h1 id="customers">
+0
+</h1>
+
+</div>
+
+
+<div class="card">
+
+<h3>Orders</h3>
+
+<h1 id="orders">
+0
+</h1>
+
+</div>
+
+
+
+<script>
+
+
+let data={
+
+revenue:75000,
+
+customers:1200,
+
+orders:350
+
+};
+
+
+revenue.innerHTML=data.revenue;
+
+customers.innerHTML=data.customers;
+
+orders.innerHTML=data.orders;
+
+
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>PostgreSQL User System</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#eeeeee;
+    padding:30px;
+}
+
+.container{
+
+    width:400px;
+    background:white;
+    padding:20px;
+    margin:auto;
+    border-radius:10px;
+    box-shadow:0 0 10px gray;
+
+}
+
+input{
+
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+
+}
+
+button{
+
+    padding:10px;
+    background:#0066ff;
+    color:white;
+    border:0;
+    cursor:pointer;
+
+}
+
+
+li{
+
+    background:#ddd;
+    margin:10px;
+    padding:10px;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h2>PostgreSQL User Management</h2>
+
+
+<input id="name" placeholder="Enter Name">
+
+
+<input id="email" placeholder="Enter Email">
+
+
+<button onclick="addUser()">
+Save User
+</button>
+
+
+<h3>Users</h3>
+
+<ul id="list"></ul>
+
+
+</div>
+
+
+
+<script>
+
+
+async function addUser(){
+
+
+let name =
+document.getElementById("name").value;
+
+
+let email =
+document.getElementById("email").value;
+
+
+
+await fetch("/users",
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+name:name,
+email:email
+})
+
+});
+
+
+loadUsers();
+
+}
+
+
+
+
+async function loadUsers(){
+
+
+let response =
+await fetch("/users");
+
+
+let users =
+await response.json();
+
+
+let list =
+document.getElementById("list");
+
+
+list.innerHTML="";
+
+
+users.forEach(user=>{
+
+
+list.innerHTML +=
+
+"<li>"+
+"<b>"+user.name+"</b><br>"+
+user.email+
+"</li>";
+
+});
+
+
+}
+
+
+loadUsers();
+
+
+</script>
+
+
+</body>
+
+</html>
+

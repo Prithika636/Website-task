@@ -1,0 +1,129 @@
+const express = require("express");
+const jwt = require("jsonwebtoken");
+
+const app = express();
+app.use(express.json());
+
+const PORT = 3000;
+const JWT_SECRET = "mysecretkey";
+
+/* -----------------------------
+   Custom Error Class
+------------------------------*/
+class AppError extends Error {
+    constructor(message, statusCode) {
+        super(message);
+        this.statusCode = statusCode;
+    }
+}
+
+/* -----------------------------
+   JWT Authentication Middleware
+------------------------------*/
+function authMiddleware(req, res, next) {
+    try {
+        const authHeader = req.headers.authorization;
+
+        if (
+            !authHeader ||
+            !authHeader.startsWith("Bearer ")
+        ) {
+            throw new AppError(
+                "Token is required",
+                401
+            );
+        }
+
+        const token = authHeader.split(" ")[1];
+
+        const decoded = jwt.verify(
+            token,
+            JWT_SECRET
+        );
+
+        req.user = decoded;
+
+        next();
+    } catch (error) {
+        next(
+            new AppError(
+                "Invalid or Expired Token",
+                401
+            )
+        );
+    }
+}
+
+/* -----------------------------
+   Login API
+------------------------------*/
+app.post("/login", (req, res, next) => {
+    try {
+        const { username, password } = req.body;
+
+        if (
+            username !== "admin" ||
+            password !== "1234"
+        ) {
+            throw new AppError(
+                "Invalid Credentials",
+                401
+            );
+        }
+
+        const token = jwt.sign(
+            {
+                id: 1,
+                username: username
+            },
+            JWT_SECRET,
+            {
+                expiresIn: "1h"
+            }
+        );
+
+        res.status(200).json({
+            success: true,
+            token
+        });
+
+    } catch (error) {
+        next(error);
+    }
+});
+
+/* -----------------------------
+   Protected Route
+------------------------------*/
+app.get(
+    "/dashboard",
+    authMiddleware,
+    (req, res) => {
+        res.status(200).json({
+            success: true,
+            message: "Welcome to Dashboard",
+            user: req.user
+        });
+    }
+);
+
+/* -----------------------------
+   Global Error Handler
+------------------------------*/
+app.use((err, req, res, next) => {
+    res.status(err.statusCode || 500).json({
+        success: false,
+        message:
+            err.message ||
+            "Internal Server Error"
+    });
+});
+
+/* -----------------------------
+   Start Server
+------------------------------*/
+app.listen(PORT, () => {
+    console.log(
+        `Server running on port ${PORT}`
+    );
+});

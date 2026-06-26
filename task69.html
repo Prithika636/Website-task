@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+
+<h2>Online Examination</h2>
+
+
+<p>
+1. JavaScript is?
+</p>
+
+
+<input type="radio"
+name="q"
+value="correct">
+Programming Language
+
+
+<input type="radio"
+name="q"
+value="wrong">
+Database
+
+
+<br><br>
+
+
+<button onclick="submitExam()">
+Submit
+</button>
+
+
+<h3 id="result"></h3>
+
+
+
+<script>
+
+
+function submitExam(){
+
+
+let answer=
+document.querySelector(
+'input[name="q"]:checked'
+);
+
+
+if(!answer){
+
+alert("Select answer");
+return;
+
+}
+
+
+if(answer.value=="correct")
+
+result.innerHTML=
+"Score: 10/10";
+
+
+else
+
+result.innerHTML=
+"Score: 0/10";
+
+
+}
+
+
+</script>
+
+
+</body>
+</html>

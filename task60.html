@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+<h2>LMS Platform</h2>
+
+
+<h3>Courses</h3>
+
+
+<button onclick="enroll('JavaScript')">
+JavaScript Course
+</button>
+
+
+<button onclick="enroll('Python')">
+Python Course
+</button>
+
+
+<h3>Your Courses</h3>
+
+<ul id="courses"></ul>
+
+
+
+<script>
+
+
+function enroll(course){
+
+
+let li=
+document.createElement("li");
+
+
+li.innerHTML=
+course+" Enrolled";
+
+
+document.getElementById("courses")
+.appendChild(li);
+
+
+}
+
+
+</script>
+
+
+</body>
+</html>

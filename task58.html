@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Attendance Management</title>
+
+<style>
+body{
+font-family:Arial;
+padding:30px;
+}
+
+table{
+border-collapse:collapse;
+width:500px;
+}
+
+td,th{
+border:1px solid black;
+padding:10px;
+}
+
+button{
+padding:10px;
+background:green;
+color:white;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Attendance System</h2>
+
+<input id="name" placeholder="Student Name">
+
+<button onclick="markAttendance()">
+Mark Present
+</button>
+
+<table>
+
+<thead>
+<tr>
+<th>Name</th>
+<th>Status</th>
+<th>Date</th>
+</tr>
+</thead>
+
+<tbody id="data">
+
+</tbody>
+
+</table>
+
+
+<script>
+
+function markAttendance(){
+
+let name=document.getElementById("name").value;
+
+
+let row=
+`
+<tr>
+<td>${name}</td>
+<td>Present</td>
+<td>${new Date().toLocaleDateString()}</td>
+</tr>
+`;
+
+document.getElementById("data")
+.innerHTML+=row;
+
+
+}
+
+</script>
+
+</body>
+</html>

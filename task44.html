@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JWT Authentication Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #output {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f4f4f4;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>JWT Authentication Demo</h2>
+
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+    <button onclick="verifyToken()">Verify Token</button>
+
+    <div id="output"></div>
+
+    <script>
+        let token = "";
+
+        function base64UrlEncode(str) {
+            return btoa(str)
+                .replace(/\+/g, '-')
+                .replace(/\//g, '_')
+                .replace(/=/g, '');
+        }
+
+        function createJWT(payload) {
+            const header = {
+                alg: "HS256",
+                typ: "JWT"
+            };
+
+            const encodedHeader = base64UrlEncode(
+                JSON.stringify(header)
+            );
+
+            const encodedPayload = base64UrlEncode(
+                JSON.stringify(payload)
+            );
+
+            const signature = base64UrlEncode(
+                "demo-signature"
+            );
+
+            return `${encodedHeader}.${encodedPayload}.${signature}`;
+        }
+
+        function login() {
+            const username =
+                document.getElementById("username").value;
+
+            const password =
+                document.getElementById("password").value;
+
+            if (!username || !password) {
+                alert("Enter username and password");
+                return;
+            }
+
+            token = createJWT({
+                username: username,
+                loginTime: new Date().toISOString()
+            });
+
+            document.getElementById("output").innerHTML =
+                "<b>Generated JWT:</b><br><br>" + token;
+        }
+
+        function verifyToken() {
+            if (!token) {
+                alert("Login first");
+                return;
+            }
+
+            const parts = token.split(".");
+            const payload = JSON.parse(
+                atob(parts[1].replace(/-/g, '+').replace(/_/g, '/'))
+            );
+
+            document.getElementById("output").innerHTML =
+                "<b>Token Verified</b><br><br>" +
+                JSON.stringify(payload, null, 2);
+        }
+    </script>
+
+</body>
+</html>

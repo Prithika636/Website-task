@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+
+<h2>Healthcare Management</h2>
+
+
+<input id="patient"
+placeholder="Patient Name">
+
+
+<input id="disease"
+placeholder="Disease">
+
+
+<button onclick="addPatient()">
+Register
+</button>
+
+
+<table border="1">
+
+<tbody id="patients">
+
+</tbody>
+
+</table>
+
+
+
+<script>
+
+
+function addPatient(){
+
+
+let p=
+document.getElementById("patient").value;
+
+
+let d=
+document.getElementById("disease").value;
+
+
+document.getElementById("patients")
+.innerHTML+=
+
+`
+<tr>
+<td>${p}</td>
+<td>${d}</td>
+</tr>
+`;
+
+}
+
+
+</script>
+
+
+</body>
+</html>

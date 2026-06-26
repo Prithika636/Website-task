@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+<h2>Social Media</h2>
+
+
+<input id="post"
+placeholder="Write Post">
+
+
+<button onclick="createPost()">
+Post
+</button>
+
+
+<div id="posts"></div>
+
+
+
+<script>
+
+
+function createPost(){
+
+
+let text=
+document.getElementById("post").value;
+
+
+let div=
+document.createElement("div");
+
+
+div.style.border="1px solid black";
+
+div.style.padding="10px";
+
+div.innerHTML=
+
+`
+<p>${text}</p>
+<button onclick="like(this)">
+Like
+</button>
+<span>0</span>
+`;
+
+
+document.getElementById("posts")
+.appendChild(div);
+
+
+}
+
+
+
+function like(btn){
+
+let count=
+btn.nextElementSibling;
+
+
+count.innerHTML=
+Number(count.innerHTML)+1;
+
+}
+
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+
+<body>
+
+
+<h2>Student Record Management</h2>
+
+
+<input id="name"
+placeholder="Student Name">
+
+
+<input id="mark"
+placeholder="Mark">
+
+
+<button onclick="addStudent()">
+Add
+</button>
+
+
+<table border="1">
+
+<tr>
+<th>Name</th>
+<th>Mark</th>
+</tr>
+
+
+<tbody id="table">
+
+</tbody>
+
+</table>
+
+
+
+<script>
+
+
+function addStudent(){
+
+
+let name=
+document.getElementById("name").value;
+
+
+let mark=
+document.getElementById("mark").value;
+
+
+document.getElementById("table")
+.innerHTML+=
+
+`
+<tr>
+<td>${name}</td>
+<td>${mark}</td>
+</tr>
+`;
+
+
+}
+
+
+
+</script>
+
+
+</body>
+</html>

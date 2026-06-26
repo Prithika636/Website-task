@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Banking Dashboard</title>
+
+<style>
+body{
+font-family:Arial;
+background:#f4f4f4;
+padding:30px;
+}
+
+.card{
+display:inline-block;
+background:#3498db;
+color:white;
+padding:20px;
+margin:10px;
+width:200px;
+border-radius:10px;
+}
+
+button{
+padding:10px;
+background:green;
+color:white;
+border:0;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Banking Dashboard</h2>
+
+<div class="card">
+<h3>Balance</h3>
+<h2 id="balance">50000</h2>
+</div>
+
+
+<div class="card">
+<h3>Account</h3>
+<h2>Active</h2>
+</div>
+
+
+<br>
+
+<input id="amount" placeholder="Enter amount">
+
+<button onclick="deposit()">
+Deposit
+</button>
+
+
+<button onclick="withdraw()">
+Withdraw
+</button>
+
+
+<h3 id="message"></h3>
+
+
+<script>
+
+let balance=50000;
+
+
+function deposit(){
+
+let amount=
+Number(document.getElementById("amount").value);
+
+balance+=amount;
+
+update();
+
+}
+
+
+function withdraw(){
+
+let amount=
+Number(document.getElementById("amount").value);
+
+
+if(amount<=balance){
+
+balance-=amount;
+
+update();
+
+}
+else{
+
+alert("Insufficient Balance");
+
+}
+
+}
+
+
+function update(){
+
+document.getElementById("balance")
+.innerHTML=balance;
+
+
+}
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+const express = require("express");
+const nodemailer = require("nodemailer");
+
+const app = express();
+app.use(express.json());
+
+// Configure Email Transport
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: "your-email@gmail.com",
+        pass: "your-app-password"
+    }
+});
+
+// Send Email API
+app.post("/send-email", async (req, res) => {
+    try {
+        const { to, subject, message } = req.body;
+
+        const mailOptions = {
+            from: "your-email@gmail.com",
+            to: to,
+            subject: subject,
+            html: `
+                <h2>Email Notification</h2>
+                <p>${message}</p>
+            `
+        };
+
+        const info = await transporter.sendMail(mailOptions);
+
+        res.status(200).json({
+            success: true,
+            message: "Email Sent Successfully",
+            messageId: info.messageId
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
+// Health Check
+app.get("/", (req, res) => {
+    res.send("Email Service Running");
+});
+
+app.listen(3000, () => {
+    console.log("Server running on port 3000");
+});
